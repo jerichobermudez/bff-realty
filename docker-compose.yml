@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  php-src:
+    container_name: bff-php-source
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    volumes:
+      - ./php/app:/var/www/html/
+    ports:
+      - 9001:80
+    restart: always
+  db:
+    container_name: bff-db
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: clientmsdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3307:3306"
+  phpmyadmin:
+    container_name: bff-phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - '9081:80'
+    restart: always
+    environment:
+      PMA_HOST: db
+    depends_on:
+      - db
