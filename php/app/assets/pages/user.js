@@ -33,7 +33,7 @@ const handleAddUser = (e) => {
     url:'/api/addUser',
     data: form.serialize() + `&addUser`,
     beforeSend: (response) => {
-      form.find('input, select').removeClass('is-invalid');
+      form.find('.form-group').removeClass('has-error');
       form.find('input, select, button').prop('disabled', true);
     },
     success: (response) => {
@@ -50,7 +50,7 @@ const handleAddUser = (e) => {
       } else if (response.status === 400) {
         form.find('input, select, button').prop('disabled', false);
         $.each(response.data, (key, value) => {
-          form.find(`#${key}`).addClass('is-invalid');
+          form.find(`#${key}`).parent().addClass('has-error');
           message += `<br>${key.replace(/_/g, ' ').toLowerCase().replace(/(?: |\b)(\w)/g, (key) => {
             return key.toUpperCase();    
           })} ${value}`;
@@ -71,7 +71,7 @@ const handleGetEditUser = (id) => {
     url:'/api/editUser',
     data: { user_id: id },
     beforeSend: (response) => {
-      form.find('input, select').removeClass('is-invalid');
+      form.find('.form-group').removeClass('has-error');
     },
     success: (response) => {
       if (response.status === 200) {
@@ -96,9 +96,9 @@ const handleEditUser = (e) => {
     url: '/api/editUser',
     data: form.serialize() + `&editUser`,
     beforeSend: (response) => {
-      form.find('input').removeClass('is-invalid');
-      modal.find('.modal-content').prepend(
-        $(`<div class="overlay"><i class="fas fa-2x fa-sync fa-spin"></i></div>`)
+      form.find('.form-group').removeClass('has-error');
+      modal.find('.modal-content').append(
+        $(`<div class="modal-overlay"><i class="fa fa-refresh fa-spin"></i></div>`)
       );
     },
     success: (response) => {
@@ -113,21 +113,21 @@ const handleEditUser = (e) => {
           form.find('input, button').prop('disabled', false);
           table.search('').order([]).page.len(20).draw();
           modal.modal('hide');
-          modal.find('.overlay').fadeOut();
+          modal.find('.modal-overlay').fadeOut();
         }, 700);
       } else if (response.status === 400) {
         form.find('input, button').prop('disabled', false);
         $.each(response.data, (key, value) => {
-          form.find(`#${key}`).addClass('is-invalid');
+          form.find(`#${key}`).parent().addClass('has-error');
           message += `<br>${key.replace(/_/g, ' ').toLowerCase().replace(/(?: |\b)(\w)/g, (key) => {
             return key.toUpperCase();    
           })} ${value}`;
         });
 
         message = message.replace(/This /g, '').replace(/Edit /g, '');
-        modal.find('.overlay').fadeOut();
+        modal.find('.modal-overlay').fadeOut();
       } else {
-        modal.find('.overlay').fadeOut();
+        modal.find('.modal-overlay').fadeOut();
       }
       getToast('', response.status, response.message + message, 5, icon);
     }

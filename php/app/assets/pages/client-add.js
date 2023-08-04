@@ -53,7 +53,7 @@ const validateForm = () => {
 
   for (let i = 0; i < field.length; i++) {
     if ($(field[i]).val() === '') {
-      $(field[i]).addClass('is-invalid');
+      $(field[i]).parent().addClass('has-error');
       valid = false;
     }
   }
@@ -65,9 +65,9 @@ const validateForm = () => {
     }
   } else {
     $('html, body').animate({
-      scrollTop: $(tab).eq(currentTab).find('.is-invalid').eq(0).offset().top - 220
+      scrollTop: $(tab).eq(currentTab).find('.has-error').eq(0).offset().top - 220
     }, 300);
-    $(tab[currentTab]).find('.is-invalid').eq(0).focus();
+    $(tab[currentTab]).find('.has-error .form-control').eq(0).focus();
     getToast('', 400, 'Bad Request<br>Please fill up the required fields.', 5, 'error');
   }
 
@@ -89,12 +89,13 @@ const fixStepIndicator = (n) => {
 
 const handleFormInput = (e) => {
   let targetDiv = $(e.target);
-  targetDiv.removeClass('is-invalid');
+  targetDiv.parent().removeClass('has-error');
 
   if (targetDiv.attr('id') === 'marital_status' && targetDiv.val() === 'Married') {
     $('.spouse-details #spouse_name').addClass('field-required');
   } else {
-    $('.spouse-details #spouse_name').removeClass('field-required is-invalid');
+    $('.spouse-details #spouse_name').parent().removeClass('has-error');
+    $('.spouse-details #spouse_name').removeClass('field-required');
   }
 }
 
@@ -107,7 +108,8 @@ const handleAddClient = (e) => {
     url:'/api/addClient',
     data: form.serialize() + `&addClient`,
     beforeSend: (response) => {
-      form.find('input, select').removeClass('is-invalid');
+      form.find('.select2-selection').removeClass('select-has-error');
+      form.find('.form-group').removeClass('has-error');
       form.find('input, textarea, button, select').prop('disabled', true);
     },
     success: (response) => {
@@ -127,12 +129,16 @@ const handleAddClient = (e) => {
         $.each(response.data, (key, data) => {
           if (key == 'fields') {
             $.each(data, (index, value) => {
-              form.find(`#${index}`).addClass('is-invalid');
+              if (index === 'project_name') {
+                form.find('.select2-selection').addClass('select-has-error');
+              }
+              form.find(`#${index}`).parent().addClass('has-error');
               fieldError = 'Please fill up the required fields.';
             });
           } else if (key === 'exists') {
             if (data.length > 0) {
-              form.find('#property_project_name, #property_block, #property_lot').addClass('is-invalid');
+              form.find('.select2-selection').addClass('select-has-error');
+              form.find('#project_name, #property_block, #property_lot').parent().addClass('has-error');
             }
             message = fieldError !== null ? fieldError : data;
           }
@@ -143,8 +149,3 @@ const handleAddClient = (e) => {
     }
   });
 }
-
-$('.datetimepicker-input').datetimepicker({
-  'format': 'L',
-  format: 'YYYY-MM-DD'
-});

@@ -7,7 +7,7 @@
   $data = [];
 
   if (isset($_GET['client_id'])) {
-    $clientID = $_GET['client_id'];
+    $clientID = intval($_GET['client_id']);
 
     $data = getClientDetails($conn, $clientID);
 

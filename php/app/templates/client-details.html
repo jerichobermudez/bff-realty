@@ -1,324 +1,301 @@
 <div class="row">
   <div class="col-md-6">
-    <fieldset class="border p-0">
-      <legend  class="ml-2 w-auto text-lg font-weight-bold">&nbsp;Basic Information:&nbsp;</legend>
-      <div class="card m-0 shadow-none">
-        <div class="card-header border-0 m-0 p-0 px-2 mt-n4">
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool pl-0" data-card-widget="collapse" title="Hide"><i class="fas fa-minus"></i></button>
-            <button type="button" class="btn btn-tool pl-0" data-card-widget="collapse" title="Remove"><i class="fas fa-times"></i></button>
+    <div class="box m-0 rounded-0">
+      <div class="box-header with-border border-0">
+        <h3 class="box-title">Basic Information:</h3>
+      </div>
+      <div class="box-body">
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">Customer No.</label><span>:</span>
+          </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ customer_no }}</p>
           </div>
         </div>
-        <div class="card-body pt-0 pb-2 text-sm">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">Customer No.</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ customer_no }}</p>
-            </div>
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">Client Name</label><span>:</span>
           </div>
-          <hr class="mx-n3 my-2">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">Client Name</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ client_name }}</p>
-            </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ client_name }}</p>
           </div>
-          <hr class="mx-n3 my-2">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">Address</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ client_address }}</p>
-            </div>
+        </div>
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">Address</label><span>:</span>
           </div>
-          <hr class="mx-n3 my-2">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">Birthday</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ client_birthday }}</p>
-            </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ client_address }}</p>
           </div>
-          <hr class="mx-n3 my-2">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">Contact No.</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ client_contact }}</p>
-            </div>
+        </div>
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">Birthday</label><span>:</span>
           </div>
-          <hr class="mx-n3 my-2">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">Email Address</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ client_email }}</p>
-            </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ client_birthday }}</p>
           </div>
-          <hr class="mx-n3 my-2">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">Marital Status</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ marital_status }}</p>
-            </div>
+        </div>
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">Contact No.</label><span>:</span>
           </div>
-          <hr class="mx-n3 my-2">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">Name of Spouse</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ spouse_name }}</p>
-            </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ client_contact }}</p>
           </div>
-          <hr class="mx-n3 my-2">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">Spouse Contact No.</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ spouse_contact }}</p>
-            </div>
+        </div>
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">Email Address</label><span>:</span>
           </div>
-          <hr class="mx-n3 my-2">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">Spouse Email</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ spouse_email }}</p>
-            </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ client_email }}</p>
+          </div>
+        </div>
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">Marital Status</label><span>:</span>
+          </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ marital_status }}</p>
+          </div>
+        </div>
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">Name of Spouse</label><span>:</span>
+          </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ spouse_name }}</p>
+          </div>
+        </div>
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">Spouse Contact No.</label><span>:</span>
+          </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ spouse_contact }}</p>
+          </div>
+        </div>
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">Spouse Email</label><span>:</span>
+          </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ spouse_email }}</p>
           </div>
         </div>
       </div>
-    </fieldset>
+    </div>
   </div>
   <div class="col-md-6">
-    <fieldset class="border p-0">
-      <legend  class="ml-2 w-auto text-lg font-weight-bold">&nbsp;Employment Details:&nbsp;</legend>
-      <div class="card m-0 shadow-none">
-        <div class="card-header border-0 m-0 p-0 px-2 mt-n4">
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool pl-0" data-card-widget="collapse" title="Hide"><i class="fas fa-minus"></i></button>
-            <button type="button" class="btn btn-tool pl-0" data-card-widget="collapse" title="Remove"><i class="fas fa-times"></i></button>
+    <div class="box m-0 rounded-0">
+      <div class="box-header with-border">
+        <h3 class="box-title">Employment Details:</h3>
+      </div>
+      <div class="box-body pt-0 pb-2">
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">Company Name</label><span>:</span>
+          </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ company_name }}</p>
           </div>
         </div>
-        <div class="card-body pt-0 pb-2 text-sm">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">Company Name</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ company_name }}</p>
-            </div>
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">Company Address</label><span>:</span>
           </div>
-          <hr class="mx-n3 my-2">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">Company Address</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ company_address }}</p>
-            </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ company_address }}</p>
           </div>
-          <hr class="mx-n3 my-2">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">Company Contact</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ company_contact }}</p>
-            </div>
+        </div>
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">Company Contact</label><span>:</span>
           </div>
-          <hr class="mx-n3 my-2">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">Years of Stay</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ years_worked }}</p>
-            </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ company_contact }}</p>
           </div>
-          <hr class="mx-n3 my-2">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">Position</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ position }}</p>
-            </div>
+        </div>
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">Years of Stay</label><span>:</span>
           </div>
-          <hr class="mx-n3 my-2">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">TIN</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ tin_id }}</p>
-            </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ years_worked }}</p>
           </div>
-          <hr class="mx-n3 my-2">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">SSS/GSIS No.</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ sss_id }}</p>
-            </div>
+        </div>
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">Position</label><span>:</span>
           </div>
-          <hr class="mx-n3 my-2">
-          <div class="row">
-            <div class="col-md-5 d-flex justify-content-between">
-              <label class="mb-0">Monthly Salary</label><span>:</span>
-            </div>
-            <div class="col-md-7">
-              <p class="text-muted mb-0">{{ monthly_salary }}</p>
-            </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ position }}</p>
+          </div>
+        </div>
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">TIN</label><span>:</span>
+          </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ tin_id }}</p>
+          </div>
+        </div>
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">SSS/GSIS No.</label><span>:</span>
+          </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ sss_id }}</p>
+          </div>
+        </div>
+        <div class="row py-1">
+          <div class="col-md-5 d-flex justify-content-between">
+            <label class="mb-0">Monthly Salary</label><span>:</span>
+          </div>
+          <div class="col-md-7">
+            <p class="text-muted mb-0">{{ monthly_salary }}</p>
           </div>
         </div>
       </div>
-    </fieldset>
+    </div>
   </div>
 </div>
-<hr class="border-dark mt-3 mb-1">
+<hr class="my-3">
 <div class="row">
   <div class="col-md-12">
-    <fieldset class="border p-0">
-      <legend  class="ml-2 w-auto text-lg font-weight-bold">&nbsp;Property Details:&nbsp;</legend>
-      <div class="card m-0 shadow-none">
-        <div class="card-header border-0 m-0 p-0 px-2 mt-n4">
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool pl-0" data-card-widget="collapse" title="Hide"><i class="fas fa-minus"></i></button>
-            <button type="button" class="btn btn-tool pl-0" data-card-widget="collapse" title="Remove"><i class="fas fa-times"></i></button>
-          </div>
-        </div>
-        <div class="card-body p-2 m-0 text-sm">
-          <div class="row">
-            {% loop properties %}
-              <div class="col-md-6">
-                <div class="card rounded-0">
-                  <div class="card-header py-1 px-2">
-                    Property #{{ properties.index }}
+    <div class="box rounded-0 border">
+      <div class="box-header with-border border-0">
+        <h3 class="box-title">Property Details:</h3>
+      </div>
+      <div class="box-body text-sm">
+        <div class="row">
+          {% loop properties %}
+            <div class="col-md-6">
+              <div class="box box-solid rounded-0">
+                <div class="box-header with-border py-1 px-2">
+                  Property #{{ properties.index }}
+                </div>
+                <div class="box-body p-2">
+                  <div class="row py-1">
+                    <div class="col-md-5 d-flex justify-content-between">
+                      <label class="mb-0">Project Name</label><span>:</span>
+                    </div>
+                    <div class="col-md-7">
+                      <p class="text-muted mb-0">{{ properties.project_name }}</p>
+                    </div>
                   </div>
-                  <div class="card-body p-2">
-                    <div class="row">
-                      <div class="col-md-4 d-flex justify-content-between">
-                        <label class="mb-0">Project Name</label><span>:</span>
-                      </div>
-                      <div class="col-md-8">
-                        <p class="text-muted mb-0">{{ properties.project_name }}</p>
-                      </div>
+                  <div class="row py-1">
+                    <div class="col-md-5 d-flex justify-content-between">
+                      <label class="mb-0">Address</label><span>:</span>
                     </div>
-                    <hr class="mx-n1 my-2">
-                    <div class="row">
-                      <div class="col-md-4 d-flex justify-content-between">
-                        <label class="mb-0">Address</label><span>:</span>
-                      </div>
-                      <div class="col-md-8">
-                        <p class="text-muted mb-0">{{ properties.project_location }}</p>
-                      </div>
+                    <div class="col-md-7">
+                      <p class="text-muted mb-0">{{ properties.project_location }}</p>
                     </div>
-                    <hr class="mx-n1 my-2">
-                    <div class="row">
-                      <div class="col-md-3">
-                        <label class="mb-0">Phase:</label>
-                        <span class="text-muted mb-0">{{ properties.phase }}</span>
-                      </div>
-                      <div class="col-md-4">
-                        <label class="mb-0">Block:</label>
-                        <span class="text-muted mb-0">{{ properties.block }}</span>
-                      </div>
-                      <div class="col-md-5">
-                        <label class="mb-0">Lot:</label>
-                        <span class="text-muted mb-0">{{ properties.lot }}</span>
-                      </div>
+                  </div>
+                  <div class="row py-1">
+                    <div class="col-md-5 d-flex justify-content-between">
+                      <label class="mb-0">Phase</label><span>:</span>
                     </div>
-                    <hr class="mx-n1 my-2">
-                    <div class="row">
-                      <div class="col-md-3">
-                        <label class="mb-0">Lot Area:</label>
-                        <span class="text-muted mb-0">{{ properties.lot_area }}</span>
-                      </div>
-                      <div class="col-md-4">
-                        <label class="mb-0">Price Per Sqm.:</label>
-                        <span class="text-muted mb-0">{{ properties.price_per_sqm }}</span>
-                      </div>
-                      <div class="col-md-5">
-                        <label class="mb-0">Payment Terms(months):</label>
-                        <span class="text-muted mb-0">{{ properties.payment_terms }}</span>
-                      </div>
+                    <div class="col-md-7">
+                      <p class="text-muted mb-0">{{ properties.phase }}</p>
                     </div>
-                    <hr class="mx-n1 my-2">
-                    <div class="row">
-                      <div class="col-md-4 d-flex justify-content-between">
-                        <label class="mb-0">Monthly Amortization</label><span>:</span>
-                      </div>
-                      <div class="col-md-8">
-                        <p class="text-muted mb-0">{{ properties.monthly_amortization }}</p>
-                      </div>
+                  </div>
+                  <div class="row py-1">
+                    <div class="col-md-5 d-flex justify-content-between">
+                      <label class="mb-0">Block</label><span>:</span>
                     </div>
-                    <hr class="mx-n1 my-2">
-                    <div class="row">
-                      <div class="col-md-4 d-flex justify-content-between">
-                        <label class="mb-0">Downpayment Amount</label><span>:</span>
-                      </div>
-                      <div class="col-md-8">
-                        <p class="text-muted mb-0">{{ properties.downpayment_amount }}</p>
-                      </div>
+                    <div class="col-md-7">
+                      <p class="text-muted mb-0">{{ properties.block }}</p>
                     </div>
-                    <hr class="mx-n1 my-2">
-                    <div class="row">
-                      <div class="col-md-4 d-flex justify-content-between">
-                        <label class="mb-0">Downpayment Date</label><span>:</span>
-                      </div>
-                      <div class="col-md-8">
-                        <p class="text-muted mb-0">{{ properties.downpayment_date }}</p>
-                      </div>
+                  </div>
+                  <div class="row py-1">
+                    <div class="col-md-5 d-flex justify-content-between">
+                      <label class="mb-0">Lot</label><span>:</span>
                     </div>
-                    <hr class="mx-n1 my-2">
-                    <div class="row">
-                      <div class="col-md-4 d-flex justify-content-between">
-                        <label class="mb-0">Sales Coordinator</label><span>:</span>
-                      </div>
-                      <div class="col-md-8">
-                        <p class="text-muted mb-0">{{ properties.sales_coordinator }}</p>
-                      </div>
+                    <div class="col-md-7">
+                      <p class="text-muted mb-0">{{ properties.lot }}</p>
                     </div>
-                    <hr class="mx-n1 my-2">
-                    <div class="row">
-                      <div class="col-md-4 d-flex justify-content-between">
-                        <label class="mb-0">Assisted By</label><span>:</span>
-                      </div>
-                      <div class="col-md-8">
-                        <p class="text-muted mb-0">{{ properties.assistant_coordinator }}</p>
-                      </div>
+                  </div>
+                  <div class="row py-1">
+                    <div class="col-md-5 d-flex justify-content-between">
+                      <label class="mb-0">Lot Area</label><span>:</span>
                     </div>
-                    <hr class="mx-n1 my-2">
-                    <div class="row">
-                      <div class="col-md-4 d-flex justify-content-between">
-                        <label class="mb-0">Remarks</label><span>:</span>
-                      </div>
-                      <div class="col-md-8">
-                        <p class="text-muted mb-0">{{ properties.remarks }}</p>
-                      </div>
+                    <div class="col-md-7">
+                      <p class="text-muted mb-0">{{ properties.lot_area }}</p>
+                    </div>
+                  </div>
+                  <div class="row py-1">
+                    <div class="col-md-5 d-flex justify-content-between">
+                      <label class="mb-0">Price Per SQM.</label><span>:</span>
+                    </div>
+                    <div class="col-md-7">
+                      <p class="text-muted mb-0">{{ properties.price_per_sqm }}</p>
+                    </div>
+                  </div>
+                  <div class="row py-1">
+                    <div class="col-md-5 d-flex justify-content-between">
+                      <label class="mb-0">Terms</label><span>:</span>
+                    </div>
+                    <div class="col-md-7">
+                      <p class="text-muted mb-0">{{ properties.payment_terms }} Months</p>
+                    </div>
+                  </div>
+                  <div class="row py-1">
+                    <div class="col-md-5 d-flex justify-content-between">
+                      <label class="mb-0">Monthly Amortization</label><span>:</span>
+                    </div>
+                    <div class="col-md-7">
+                      <p class="text-muted mb-0">{{ properties.monthly_amortization }}</p>
+                    </div>
+                  </div>
+                  <div class="row py-1">
+                    <div class="col-md-5 d-flex justify-content-between">
+                      <label class="mb-0">Downpayment Amount</label><span>:</span>
+                    </div>
+                    <div class="col-md-7">
+                      <p class="text-muted mb-0">{{ properties.downpayment_amount }}</p>
+                    </div>
+                  </div>
+                  <div class="row py-1">
+                    <div class="col-md-5 d-flex justify-content-between">
+                      <label class="mb-0">Downpayment Date</label><span>:</span>
+                    </div>
+                    <div class="col-md-7">
+                      <p class="text-muted mb-0">{{ properties.downpayment_date }}</p>
+                    </div>
+                  </div>
+                  <div class="row py-1">
+                    <div class="col-md-5 d-flex justify-content-between">
+                      <label class="mb-0">Sales Coordinator</label><span>:</span>
+                    </div>
+                    <div class="col-md-7">
+                      <p class="text-muted mb-0">{{ properties.sales_coordinator }}</p>
+                    </div>
+                  </div>
+                  <div class="row py-1">
+                    <div class="col-md-5 d-flex justify-content-between">
+                      <label class="mb-0">Assisted By</label><span>:</span>
+                    </div>
+                    <div class="col-md-7">
+                      <p class="text-muted mb-0">{{ properties.assistant_coordinator }}</p>
+                    </div>
+                  </div>
+                  <div class="row py-1">
+                    <div class="col-md-5 d-flex justify-content-between">
+                      <label class="mb-0">Remarks</label><span>:</span>
+                    </div>
+                    <div class="col-md-7">
+                      <p class="text-muted mb-0">{{ properties.remarks }}</p>
                     </div>
                   </div>
                 </div>
               </div>
-            {% endloop %}
-          </div>
+            </div>
+          {% endloop %}
         </div>
       </div>
-    </fieldset>
+    </div>
   </div>
 </div>

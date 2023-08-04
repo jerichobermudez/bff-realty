@@ -13,9 +13,9 @@
       'property_code' => 'This field is required.'
     ]);
 
-    $projectName = $_POST['project_name'];
-    $projectLocation = $_POST['project_location'];
-    $propertyCode = strtoupper($_POST['property_code']);
+    $projectName = checkField($_POST['project_name']);
+    $projectLocation = checkField($_POST['project_location']);
+    $propertyCode = checkField($_POST['property_code']);
 
     $qry = "SELECT id FROM tbl_projects WHERE code = ? LIMIT 1";
     $stmt = $conn->prepare($qry);

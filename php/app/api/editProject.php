@@ -7,7 +7,7 @@
   $data = [];
 
   if (isset($_GET['project_id'])) {
-    $propertyId = $_GET['project_id'];
+    $propertyId = intval($_GET['project_id']);
     $qry = "SELECT id, name, location, code FROM tbl_projects WHERE id = ? LIMIT 1";
     $stmt = $conn->prepare($qry);
     $stmt->bind_param('i', $propertyId);
@@ -32,10 +32,10 @@
       'property_code' => 'This field is required.'
     ]);
 
-    $projectId = $_POST['project_id'];
-    $projectName = $_POST['project_name'];
-    $projectLocation = $_POST['project_location'];
-    $propertyCode = strtoupper($_POST['property_code']);
+    $projectId = intval($_POST['project_id']);
+    $projectName = checkField($_POST['project_name']);
+    $projectLocation = checkField($_POST['project_location']);
+    $propertyCode = checkField($_POST['property_code']);
 
     $qry = "SELECT id FROM tbl_projects WHERE id != ? AND code = ? LIMIT 1";
     $stmt = $conn->prepare($qry);

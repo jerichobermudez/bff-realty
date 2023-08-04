@@ -2,7 +2,6 @@ const handleGetProjectSelections = (selector, locationSelector) => {
   $(selector).select2({
     placeholder: $(selector).data('placeholder'),
     allowClear: true,
-    theme: 'bootstrap4',
     ajax: {
       url: '/api/getProjectSelections',
       delay: 350,
@@ -16,6 +15,23 @@ const handleGetProjectSelections = (selector, locationSelector) => {
   }).on('change', function (e) {
     var selectedOption = $(this).select2('data')[0];
     $(locationSelector).val(selectedOption.location);
+  });
+}
+
+const handleGetPaymentMethods = (selector) => {
+  $(selector).select2({
+    placeholder: $(selector).data('placeholder'),
+    allowClear: true,
+    ajax: {
+      url: '/api/getPaymentMethods',
+      delay: 350,
+      data: (params) => {
+        return { search: params.term};
+      },
+      processResults: function (response) {
+        return response.data;
+      }
+    }
   });
 }
 
@@ -37,7 +53,9 @@ const handleComputeMonthlyAmortization = (
   downpaymentAmount = !isNaN(downpaymentAmount) ? downpaymentAmount : 0;
 
   // Compute the monthly amortization
+  let miscelaneousFee = 0.07; // 7%
   let totalPropertyPrice = lotArea * pricePerSqm;
+  totalPropertyPrice = totalPropertyPrice + (totalPropertyPrice * miscelaneousFee);
   let remainingBalance = totalPropertyPrice - downpaymentAmount;
   let totalMonthlyAmortization = remainingBalance / paymentTerms;
   totalMonthlyAmortization = isNaN(totalMonthlyAmortization) || totalMonthlyAmortization <= 0
@@ -63,3 +81,14 @@ const getToast = (header, status, message, topPos = null, icon) => {
     loaderBg: '#231F20'
   });
 }
+
+$(document).ajaxComplete(function() {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+
+$('.datetimepicker-input').datepicker({
+  format: 'yyyy-mm-dd',
+  todayBtn: 'linked',
+  todayHighlight: true,
+  autoclose: true
+});

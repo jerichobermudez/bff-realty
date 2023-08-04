@@ -7,29 +7,25 @@
 <!DOCTYPE html>
 <html>
 <?php require_once('includes/header.php'); ?>
-<body class="layout-navbar-fixed layout-fixed sidebar-mini">
-  <div class="wrapper">
-    <?php require_once('includes/sidebar.php'); ?>
-    <div class="content-wrapper">
-      <section class="content-header">
-        <div class="container-fluid">
-          <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1>Sales Reports</h1>
-            </div>
-          </div>
-        </div>
-      </section>
+<?php require_once('includes/sidebar.php'); ?>
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      Sales Report
+      <small></small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-calendar"></i> Sales Report</a></li>
+    </ol>
+  </section>
 
-      <section class="content">
-        <div class="container-fluid">
-          <div class="card">
-            <div class="card-body">
-              
-            </div>
-          </div>
-        </div>
-      </section>
+  <section class="content">
+    <div class="box rounded-0">
+      <div class="box-header with-border">
+        
+      </div>
     </div>
-  <?php require_once('includes/footer.php') ?>
+  </section>
+</div>
+<?php require_once('includes/footer.php') ?>
 </html>

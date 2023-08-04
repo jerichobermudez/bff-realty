@@ -1,6 +1,7 @@
 <?php
   require_once('../includes/connection.php');
   require_once('../includes/response.php');
+  require_once('../enums/UserRole.php');
   header('Content-Type: application/json');
 
   if (isset($_POST['login'])) {
@@ -20,10 +21,10 @@
     if (!empty($validation)) {
       $jsonData = getResponseStatus(400, $validation);
     } else {
-      $qry = "SELECT id, username FROM tbl_users WHERE password = ? AND status = 1 AND ( username = ? OR email = ? )";
+      $qry = "SELECT id, username, role FROM tbl_users WHERE password = ? AND status = 1 AND ( username = ? OR email = ? )";
       $stmt = $conn->prepare($qry);
       $stmt->bind_param('sss', $passwordHash, $username, $username);
-      $stmt->bind_result($id, $userName);
+      $stmt->bind_result($id, $userName, $role);
       $stmt->execute();
       $stmt->store_result();
       $logcount = $stmt->num_rows;
@@ -32,10 +33,17 @@
 
       if ($logcount >= 1) {
         session_start();
-        $_SESSION['clientmsaid'] = $id;
-        $_SESSION['login'] = $username;
+        $url = '';
+        if ($role === UserRole::AGENT) {
+          $url = '/agent';
+          $_SESSION['agentmsaid'] = $id;
+        } else {
+          $url = '/';
+          $_SESSION['clientmsaid'] = $id;
+          $_SESSION['login'] = $username;
+        }
 
-        $jsonData = getResponseStatus(200);
+        $jsonData = getResponseStatus(200, ['url' => $url]);
       } else {
         $jsonData = getResponseStatus(401);
       }

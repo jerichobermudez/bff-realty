@@ -5,7 +5,7 @@
   require_once('../enums/UserRole.php');
 
   if (isset($_POST['draw'])) {
-    $sessionId = $_SESSION['clientmsaid'] ?? null;
+    $roleAdmin = UserRole::ADMIN;
     $column = ['id', 'name', 'username', 'email', 'role', ''];
 
     $qry = "SELECT id, name, username, email, role, status FROM tbl_users ";
@@ -13,7 +13,7 @@
     if ($_POST['search']['value'] != '') {
       $searchParam = '%' . $_POST['search']['value'] . '%';
       $qry .= ' WHERE
-        id != ' . $sessionId . '
+        role != ' . $roleAdmin . '
         AND (
           id LIKE "' . $searchParam . '" OR
           name LIKE "' . $searchParam . '" OR
@@ -23,7 +23,7 @@
           OR ( role = "' . UserRole::USER . '" AND "' . UserRole::getTextValue(UserRole::USER) . '" LIKE "' . $searchParam . '" )
         )';
     } else {
-      $qry .= ' WHERE id != ' . $sessionId;
+      $qry .= ' WHERE role != ' . $roleAdmin;
     }
 
 
@@ -69,9 +69,9 @@
     }
 
     // Total records in the table
-    $totalRecordsQuery = "SELECT COUNT(*) as total FROM tbl_users WHERE id != ?";
+    $totalRecordsQuery = "SELECT COUNT(*) as total FROM tbl_users WHERE role != ?";
     $totalRecordsStmt = $conn->prepare($totalRecordsQuery);
-    $totalRecordsStmt->bind_param('i', $sessionId);
+    $totalRecordsStmt->bind_param('i', $roleAdmin);
     $totalRecordsStmt->execute();
     $totalRecordsResult = $totalRecordsStmt->get_result();
     $totalRecords = $totalRecordsResult->fetch_assoc()['total'];

@@ -18,7 +18,10 @@
     $pricePerSqm = $propertyDetails['price_per_sqm']
       ? str_replace(',', '', $propertyDetails['price_per_sqm'])
       : 0;
+
+    $miscelaneousFee = 0.07; // 7%
     $totalPropertyPrice = $lotArea * $pricePerSqm;
+    $totalPropertyPrice = $totalPropertyPrice + ($totalPropertyPrice * $miscelaneousFee);
     $remainingBalance = $totalPropertyPrice - str_replace(',', '', $data['total']);
     $data['total_contract_price'] = number_format((float) $totalPropertyPrice, 2, '.', ',');
     $data['remaining_balance'] = number_format((float) $remainingBalance, 2, '.', ',');

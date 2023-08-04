@@ -2,13 +2,17 @@
   abstract class UserRole
   {
     const ADMIN = 1;
-    const USER = 2;
+    const FINANCE = 2;
+    const SALES = 3;
+    const AGENT = 4;
 
     public static function getTextValue(int $role)
     {
       $userRoleValue = [
-        static::ADMIN => 'Admin',
-        static::USER => 'User'
+        static::ADMIN => 'Super Admin',
+        static::FINANCE => 'Admin(Finance)',
+        static::SALES => 'Admin(Sales)',
+        static::AGENT => 'Agent'
       ];
 
       $textValue = $userRoleValue[$role] ?? '------';

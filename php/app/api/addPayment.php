@@ -15,6 +15,8 @@
       'payment_date' => 'This field is required.',
       'payment_amount' => 'This field is required.',
       'payment_type' => 'This field is required.',
+      'payment_method' => 'This field is required.',
+      'pr_no' => 'This field is required.'
     ]);
 
     $clientId = intval($_POST['client_id']);
@@ -24,6 +26,8 @@
     $type = checkField($_POST['payment_type']);
     $paymentType = PaymentTypes::getTextValue(intval($type));
     $paymentDueDate = checkField($_POST['payment_due_date'], true);
+    $modeOfPayment = checkField($_POST['payment_method']);
+    $prNo = checkField($_POST['pr_no']);
     $remarks = checkField($_POST['payment_remarks']);
     $paymentAmount = $paymentAmount ? str_replace(',', '', $paymentAmount) : 0;
 
@@ -125,9 +129,9 @@
 
       $referenceNo = generateReferenceNo($conn, $paymentDate);
 
-      $qry = "INSERT INTO tbl_payments (client_id, property_id, reference_no, payment_amount, payment_date, payment_due_date, type, payment_type, payment_remarks) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      $qry = "INSERT INTO tbl_payments (client_id, property_id, reference_no, payment_amount, payment_date, payment_due_date, type, payment_type, mode_of_payment, pr_no, payment_remarks) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
       $stmt = $conn->prepare($qry);
-      $stmt->bind_param('iiisssiss', $clientId, $propertyId, $referenceNo, $paymentAmount, $paymentDate, $paymentDueDate, $type, $paymentType, $remarks);
+      $stmt->bind_param('iiisssisiss', $clientId, $propertyId, $referenceNo, $paymentAmount, $paymentDate, $paymentDueDate, $type, $paymentType, $modeOfPayment, $prNo, $remarks);
       $stmt->execute();
       $affectedRows = $stmt->affected_rows;
       $stmt->close();

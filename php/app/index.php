@@ -1,5 +1,6 @@
 <?php
   session_start();
+  if (isset($_SESSION['agentmsaid'])) header('location:/agent');
   if (isset($_SESSION['clientmsaid'])) header('location:/dashboard');
 ?>
 <!DOCTYPE html>
@@ -10,33 +11,22 @@
 ?>
 <body class="login-page">
   <div class="login-box">
-    <div class="login-logo mt-n5 mb-0">
-      <img src="/assets/images/login.png" width="300" class="mt-1 mb-4">
-      <p class="h2 my-3"></p>
+    <div class="login-logo">
+      <img src="/assets/images/login.png" width="250">
     </div>
-    <div class="card">
-      <div class="card-body login-card-body">
-        <p class="login-box-msg h5 text-dark">Sign in now!</p>
-        <form id="loginForm" onsubmit="handleLogin(event)">
-          <div class="input-group mb-3">
-            <input type="text" name="username" id="username" class="form-control rounded-0" placeholder="Username">
-            <div class="input-group-append">
-              <div class="input-group-text rounded-0">
-                <span class="fas fa-user"></span>
-              </div>
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <input type="password" name="password" id="password" class="form-control rounded-0" placeholder="Password">
-            <div class="input-group-append">
-              <div class="input-group-text rounded-0">
-                <span class="fas fa-lock"></span>
-              </div>
-            </div>
-          </div>
-          <button type="submit" class="btn bg-gradient-primary btn-flat btn-block mt-3" onclick="handleLogin(event)">Sign In</button>
-        </form>
-      </div>
+    <div class="login-box-body">
+      <p class="login-box-msg">Sign in now!</p>
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group has-feedback">
+          <input type="text" name="username" id="username" class="form-control" placeholder="Username/Email">
+          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+          <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+          <button type="submit" class="btn btn-primary btn-flat btn-block mt-3" onclick="handleLogin(event)">Sign In</button>
+      </form>
     </div>
   </div>
   <?php require_once('includes/footer.php'); ?>

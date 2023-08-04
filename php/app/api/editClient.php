@@ -53,9 +53,9 @@
     }
 
     // Assign clients details
-    $firstname = $_POST['edit_firstname'];
+    $firstname = checkField($_POST['edit_firstname']);
     $middlename = checkField($_POST['edit_middlename']);
-    $lastname = $_POST['edit_lastname'];
+    $lastname = checkField($_POST['edit_lastname']);
     $address = checkField($_POST['edit_address']);
     $contactNo = checkField($_POST['edit_contact']);
     $email = checkField($_POST['edit_email']);

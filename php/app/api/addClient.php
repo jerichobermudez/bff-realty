@@ -31,6 +31,8 @@
       'client_firstname' => 'This field is required.',
       'client_lastname' => 'This field is required.',
       'client_address' => 'This field is required.',
+      'client_contact' => 'This field is required.',
+      'client_email' => 'This field is required.',
       'marital_status' => 'This field is required.',
       'project_name' => 'This field is required.',
       'project_location' => 'This field is required.',
@@ -107,9 +109,9 @@
 
       $dateEntry = date('Y-m-d', strtotime($_POST['client_entry_date']));
       $customerNo = generateCustomerCode($propertyCode, $lastCustomerNo ?? null);
-      $firstname = $_POST['client_firstname'];
+      $firstname = checkField($_POST['client_firstname']);
       $middlename = checkField($_POST['client_middlename']);
-      $lastname = $_POST['client_lastname'];
+      $lastname = checkField($_POST['client_lastname']);
       $address = checkField($_POST['client_address']);
       $birthday = checkField($_POST['client_birthday'], true);
       $contactNo = checkField($_POST['client_contact']);

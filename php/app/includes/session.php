@@ -6,7 +6,7 @@
       header('location:/');
     }
     
-    $sessionId=$_SESSION['clientmsaid'];
+    $sessionId = $_SESSION['clientmsaid'];
 
     $qry = "SELECT id, name, username, email, contact_no, role, date_created FROM tbl_users WHERE id = ?";
     $stmt = $conn->prepare($qry);

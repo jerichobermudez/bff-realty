@@ -47,10 +47,11 @@ const handleGetEditClient = (id) => {
         scrollTop: modal.find('.modal-body').offset().top - 220
       }, 300);
       form[0].reset();
-      form.find('input, textarea, select').removeClass('is-invalid');
+      form.find('.select2-selection').removeClass('select-has-error');
+      form.find('.form-group').removeClass('has-error');
       form.find('.select2-get-edit-properties').val(null).trigger('change');
       modal.find('.modal-content').prepend(
-        $(`<div class="overlay"><i class="fas fa-2x fa-sync fa-spin"></i></div>`)
+        $(`<div class="modal-overlay"><i class="fa fa-refresh fa-spin"></i></div>`)
       );
     },
     success: (response) => {
@@ -85,13 +86,15 @@ const handleGetEditClient = (id) => {
       }
     },
     complete: () => {
-      modal.find('.overlay').fadeOut('slow');
+      modal.find('.modal-overlay').fadeOut();
     }
   });
 }
 
 const handleGetEditProperty = (id) => {
   let form = $('#editClientForm');
+  let modal = $('#editClientModal');
+  let agentSelections = form.find(".select2-get-project-agents").select2();
 
   if (!id) {
     form.find('#edit_project_id').val('');
@@ -107,6 +110,7 @@ const handleGetEditProperty = (id) => {
     form.find('#edit_downpayment_date').val('');
     form.find('#edit_downpayment_due_date').val('');
     form.find('#edit_sales_coordinator').val('');
+    agentSelections.val(null).trigger("change");
     form.find('#edit_assisting_coordinator').val('');
     form.find('#edit_property_remarks').val('');
 
@@ -118,14 +122,18 @@ const handleGetEditProperty = (id) => {
     url:'/api/getEditPropertyDetails',
     data: { property_id: id },
     beforeSend: (response) => {
-      form.find('.edit-property-details').prepend(
-        $(`<div class="overlay"><i class="fas fa-sync fa-spin"></i></div>`)
+      agentSelections.val(null).trigger("change");
+      modal.find('.modal-content').append(
+        $(`<div class="modal-overlay"><i class="fa fa-refresh fa-spin"></i></div>`)
       );
     },
     success: (response) => {
       if (response.status === 200) {
         if (response.data) {
           let data = response.data;
+          let agentId = data.agent_id;
+
+          handleSelectProjectAgent(agentId);
           form.find('#edit_project_id').val(data.project_id ?? '');
           form.find('#edit_project_location').val(data.project_location ?? '');
           form.find('#edit_property_phase').val(data.phase ?? '');
@@ -141,13 +149,14 @@ const handleGetEditProperty = (id) => {
           form.find('#edit_sales_coordinator').val(data.sales_coordinator ?? '');
           form.find('#edit_assisting_coordinator').val(data.assistant_coordinator ?? '');
           form.find('#edit_property_remarks').val(data.remarks ?? '');
+          agentSelections.val(agentId).trigger("change");
         }
       } else {
         getToast('', response.status, response.message, 5, 'error');
       }
     },
     complete: () => {
-      form.find('.edit-property-details .overlay').fadeOut('slow');
+      modal.find('.modal-overlay').fadeOut('slow');
     }
   });
 }
@@ -162,10 +171,11 @@ const handleEditClient = (e) => {
     url:'/api/editClient',
     data: form.serialize() + `&editClient`,
     beforeSend: (response) => {
-      form.find('input, textarea, select').removeClass('is-invalid');
+      form.find('.select2-selection').removeClass('select-has-error');
+      form.find('.form-group').removeClass('has-error');
       form.find('input, textarea, button, select').prop('disabled', true);
-      modal.find('.modal-content').prepend(
-        $(`<div class="overlay"><i class="fas fa-2x fa-sync fa-spin"></i></div>`)
+      modal.find('.modal-content').append(
+        $(`<div class="modal-overlay"><i class="fa fa-refresh fa-spin"></i></div>`)
       );
     },
     success: (response) => {
@@ -177,26 +187,30 @@ const handleEditClient = (e) => {
         setTimeout(() => {
           table.search('').order([]).page.len(10).draw();
           modal.modal('hide');
-          modal.find('.overlay').fadeOut();
+          modal.find('.modal-overlay').fadeOut();
         }, 1000);
       } else if (response.status === 400 || response.status === 409) {
         let fieldError = null;
         $.each(response.data, (key, data) => {
           if (key == 'fields') {
             $.each(data, (index, value) => {
-              form.find(`#${index}`).addClass('is-invalid');
+              if (index === 'project_name') {
+                form.find('.select2-selection').addClass('select-has-error');
+              }
+              form.find(`#${index}`).parent().addClass('has-error');
               fieldError = 'Please fill up the required fields.';
             });
           } else if (key === 'exists') {
             if (data.length > 0) {
-              form.find('#edit_property_id, #edit_property_block, #edit_property_lot').addClass('is-invalid');
+              form.find('.select2-selection').addClass('select-has-error');
+              form.find('#edit_property_id, #edit_property_block, #edit_property_lot').parent().addClass('has-error');
             }
             message = fieldError !== null ? fieldError : data;
           }
         });
-        modal.find('.overlay').fadeOut();
+        modal.find('.modal-overlay').fadeOut();
       } else {
-        modal.find('.overlay').fadeOut();
+        modal.find('.modal-overlay').fadeOut();
       }
       form.find('input, select, textarea, button').prop('disabled', false);
 
@@ -207,8 +221,7 @@ const handleEditClient = (e) => {
 
 const handleGetClientDetails = (id) => {
   let modal = $('#getClientDetailsModal');
-  
-  let form = $('#editProjectForm');
+
   $.ajax({
     type:'GET',
     url:'/api/getClient',
@@ -216,8 +229,8 @@ const handleGetClientDetails = (id) => {
     beforeSend: (response) => {
       modal.modal('show');
       modal.find('.modal-body').html('');
-      modal.find('.modal-content').prepend(
-        $(`<div class="overlay"><i class="fas fa-2x fa-sync fa-spin"></i></div>`)
+      modal.find('.modal-content').append(
+        $(`<div class="modal-overlay"><i class="fa fa-refresh fa-spin"></i></div>`)
       );
     },
     success: (response) => {
@@ -230,7 +243,7 @@ const handleGetClientDetails = (id) => {
       }
     },
     complete: () => {
-      modal.find('.overlay').fadeOut();
+      modal.find('.modal-overlay').fadeOut('slow');
     }
   });
 }
@@ -243,6 +256,7 @@ const handleViewPaymentModal = (id) => {
   modal.find('input, select').removeClass('is-invalid');
   modal.find('#payment_client_id').val(id);
   handleGetClientPropertySelections('.select2-get-properties', id);
+  handleGetPaymentMethods('.select2-get-payment-methods');
   handleShowPaymentHistory();
 }
 
@@ -258,7 +272,7 @@ const handleViewPropertyModal = (id) => {
 }
 
 const handleViewSOAModal = (id) => {
-  let modal = $('#generateSOAModal');
+  let modal = $('#propertiesPaymentSummaryModal');
   modal.modal('show');
   handleGetPropertiesTable(id);
 }
@@ -267,7 +281,8 @@ const handleShowPaymentHistory = (id = null) => {
   let paymentHistory = $('#paymentHistory');
   let form = $('#addPaymentForm');
   form.find('button[type="submit"]').prop('disabled', false);
-  form.find('input, select').removeClass('is-invalid');
+  form.find('.select2-selection').removeClass('select-has-error');
+  form.find('.form-group').removeClass('has-error');
   if (!id) {
     paymentHistory.html($(`<div class="text-center text-lg font-weight-bold"><label>Please Choose Property!</label></div>`));
 
@@ -279,7 +294,7 @@ const handleShowPaymentHistory = (id = null) => {
     url:'/api/getPaymentHistory',
     data: { property_id: id },
     beforeSend: (response) => {
-      paymentHistory.html($('<div class="overlay"><i class="fas fa-2x fa-sync fa-spin"></i></div>'));
+      paymentHistory.html($('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>'));
     },
     success: (response) => {
       let htmlLayout = '';
@@ -287,62 +302,46 @@ const handleShowPaymentHistory = (id = null) => {
         let data = response.data;
 
         htmlLayout = `
-          <div class='d-flex justify-content-end align-items-end' style='gap: 0.3rem;'>
-            <div>
-              <button type='button' class='btn btn-flat bg-gradient-primary btn-xs dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
+          <div class='d-flex justify-content-start align-items-start' style='gap: 0.3rem;'>
+            <div class='dropdown'>
+              <button type='button' class='btn btn-flat btn-primary btn-xs dropdown-toggle' data-toggle='dropdown' aria-expanded='false' title='View'>
                 <span class='fa fa-eye fa-fw fa-sm'></span>
               </button>
-              <div class='dropdown-menu rounded-0 py-0' style='margin-right: -13px; margin-top: -1px;'>
-
-                <form action='/api/getSoaListsPdf' method='POST' target='_blank'>
+              <div class='dropdown-menu rounded-0 py-0' style='margin-right: 3px; margin-top: -1px;'>
+                <form action='/api/getStatementOfAccount' method='POST' target='_blank'>
                   <input type='hidden' name='property_id' value='${id}'>
-                  <button class='btn btn-flat dropdown-item mt-0' name='view'>
-                    <span class='fa fa-eye fa-fw fa-sm'></span> SOA List
-                  </button>
-                </form>
-                
-                <form action='/api/getSoaSummaryPdf' method='POST' target='_blank'>
-                  <input type='hidden' name='property_id' value='${id}'>
-                  <button class='btn btn-flat dropdown-item mt-0' name='view'>
-                    <span class='fa fa-eye fa-fw fa-sm'></span> SOA Summary
+                  <button class='btn btn-flat btn-link dropdown-item mt-0' name='view'>
+                    <span class='fa fa-eye fa-fw fa-sm'></span> Statement Of Account
                   </button>
                 </form>
 
-                <form action='/api/getCMASPdf' method='POST' target='_blank'>
+                <form action='/api/getPaymentSummary' method='POST' target='_blank'>
                   <input type='hidden' name='property_id' value='${id}'>
-                  <button class='btn btn-flat dropdown-item mt-0' name='view'>
-                    <span class='fa fa-eye fa-fw fa-sm'></span> CMAS
+                  <button class='btn btn-flat btn-link dropdown-item mt-0' name='view'>
+                    <span class='fa fa-eye fa-fw fa-sm'></span> Payment Summary
                   </button>
                 </form>
               </div>
             </div>
 
-            <div>
-              <button type='button' class='btn btn-flat bg-gradient-primary btn-xs dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
+            <div class='dropdown'>
+              <button type='button' class='btn btn-flat btn-primary btn-xs dropdown-toggle' data-toggle='dropdown' aria-expanded='false' title='Download'>
                 <span class='fa fa-download fa-fw fa-sm'></span>
               </button>
-              <div class='dropdown-menu rounded-0 py-0' style='margin-right: -13px; margin-top: -1px;'>
+              <div class='dropdown-menu rounded-0 py-0' style='margin-right: 3px; margin-top: -1px;'>
+              <form action='/api/getStatementOfAccount' method='POST' target='_blank'>
+                <input type='hidden' name='property_id' value='${id}'>
+                <button class='btn btn-flat btn-link dropdown-item mt-0' name='download'>
+                  <span class='fa fa-download fa-fw fa-sm'></span> Statement Of Account
+                </button>
+              </form>
 
-                <form action='/api/getSoaListsPdf' method='POST' target='_blank'>
-                  <input type='hidden' name='property_id' value='${id}'>
-                  <button class='btn btn-flat dropdown-item mt-0' name='download'>
-                    <span class='fa fa-download fa-fw fa-sm'></span> DL SOA List
-                  </button>
-                </form>
-                
-                <form action='/api/getSoaSummaryPdf' method='POST' target='_blank'>
-                  <input type='hidden' name='property_id' value='${id}'>
-                  <button class='btn btn-flat dropdown-item mt-0' name='download'>
-                    <span class='fa fa-download fa-fw fa-sm'></span> SOA Summary
-                  </button>
-                </form>
-
-                <form action='/api/getCMASPdf' method='POST' target='_blank'>
-                  <input type='hidden' name='property_id' value='${id}'>
-                  <button class='btn btn-flat dropdown-item mt-0' name='download'>
-                    <span class='fa fa-download fa-fw fa-sm'></span> CMAS
-                  </button>
-                </form>
+              <form action='/api/getPaymentSummary' method='POST' target='_blank'>
+                <input type='hidden' name='property_id' value='${id}'>
+                <button class='btn btn-flat btn-link dropdown-item mt-0' name='download'>
+                  <span class='fa fa-download fa-fw fa-sm'></span> Payment Summary
+                </button>
+              </form>
               </div>
             </div>
           </div>
@@ -411,7 +410,8 @@ const handleAddPayment = (e) => {
     url:'/api/addPayment',
     data: form.serialize() + `&addPayment`,
     beforeSend: (response) => {
-      form.find('input, select').removeClass('is-invalid');
+      form.find('.select2-selection').removeClass('select-has-error');
+      form.find('.form-group').removeClass('has-error');
       form.find('input, select, button').prop('disabled', true);
     },
     success: (response) => {
@@ -430,7 +430,13 @@ const handleAddPayment = (e) => {
       } else if (response.status === 400) {
         form.find('input, select, button').prop('disabled', false);
         $.each(response.data, (key, value) => {
-          form.find(`#${key}`).addClass('is-invalid');
+          console.log(form.find(`#${key}`));
+          if (key === 'property' || key === 'payment_method') {
+            form.find(`#${key}`).parent()
+              .find('.select2-selection')
+              .addClass('select-has-error');
+          }
+          form.find(`#${key}`).parent().addClass('has-error');
         });
 
         message = '<br>Please fill up the required fields.';
@@ -472,7 +478,8 @@ const handleAddProperty = (e) => {
     url:'/api/addProperty',
     data: form.serialize() + `&addProperty`,
     beforeSend: (response) => {
-      form.find('input, select').removeClass('is-invalid');
+      form.find('.select2-selection').removeClass('select-has-error');
+      form.find('.form-group').removeClass('has-error');
       form.find('input, select, textarea, button').prop('disabled', true);
     },
     success: (response) => {
@@ -495,12 +502,16 @@ const handleAddProperty = (e) => {
         $.each(response.data, (key, data) => {
           if (key == 'fields') {
             $.each(data, (index, value) => {
-              form.find(`#${index}`).addClass('is-invalid');
+              if (index === 'property_project_name') {
+                form.find('.select2-selection').addClass('select-has-error');
+              }
+              form.find(`#${index}`).parent().addClass('has-error');
               fieldError = 'Please fill up the required fields.';
             });
           } else if (key === 'exists') {
             if (data.length > 0) {
-              form.find('#property_project_name, #property_block, #property_lot').addClass('is-invalid');
+              form.find('.select2-selection').addClass('select-has-error');
+              form.find('#property_project_name, #property_block, #property_lot').parent().addClass('has-error');
             }
             message = fieldError !== null ? fieldError : data;
           }
@@ -516,7 +527,6 @@ const handleGetClientPropertySelections = (selector, id) => {
   $(selector).select2({
     placeholder: $(selector).data('placeholder'),
     allowClear: true,
-    theme: 'bootstrap4',
     ajax: {
       url: '/api/getClientPropertySelections?client_id=' + id,
       delay: 350,
@@ -528,6 +538,24 @@ const handleGetClientPropertySelections = (selector, id) => {
       }
     }
   })
+}
+
+const handleSelectProjectAgent = (id) => {
+  $.ajax({
+    type:'GET',
+    url:'/api/getProjectAgentSelections',
+    data: { agent_id : id },
+    success: (response) => {
+      if (response.status === 200) {
+        let data = response.data;
+        $('.select2-get-project-agents').select2({
+          data: data.results
+        });
+      } else {
+        getToast('', response.status, response.message, 5, 'error');
+      }
+    }
+  });
 }
 
 const handleGetPropertiesTable = (id) => {
@@ -558,11 +586,9 @@ const handleGetPropertiesTable = (id) => {
         'targets': [4],
         'orderable': false,
       }
-    ]
+    ],
+    scrollCollapse: false,
+    scrollX: 500,
+    scrollY: false
   });
 }
-
-$('.datetimepicker-input').datetimepicker({
-  'format': 'L',
-  format: 'YYYY-MM-DD'
-});

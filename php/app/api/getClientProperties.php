@@ -64,61 +64,60 @@
       $subArray[] = $row['project_location'];
       $subArray[] = $row['phase_block_lot'] ?? '------';
       $subArray[] = "
-        <div class='d-flex justify-content-between' style='gap: 0.3rem;'>
-          <div class='w-100'>
-            <button type='button' class='btn btn-flat btn-block bg-gradient-primary btn-xs dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
+        <div class='d-flex justify-content-center align-items-center' style='gap: 0.3rem;'>
+          <div class='dropdown'>
+            <button type='button' class='btn btn-flat btn-primary btn-xs dropdown-toggle' data-toggle='dropdown' aria-expanded='false' title='View'>
               <span class='fa fa-eye fa-fw fa-sm'></span>
             </button>
-            <div class='dropdown-menu rounded-0 py-0' style='margin-right: -13px; margin-top: -1px;'>
-
-              <form action='/api/getSoaListsPdf' method='POST' target='_blank'>
-                <input type='hidden' name='property_id' value='" . $row['unique_id'] . "'>
-                <button class='btn btn-flat dropdown-item mt-0' name='view'>
-                  <span class='fa fa-eye fa-fw fa-sm'></span> SOA List
-                </button>
-              </form>
-              
-              <form action='/api/getSoaSummaryPdf' method='POST' target='_blank'>
-                <input type='hidden' name='property_id' value='" . $row['unique_id'] . "'>
-                <button class='btn btn-flat dropdown-item mt-0' name='view'>
-                  <span class='fa fa-eye fa-fw fa-sm'></span> SOA Summary
-                </button>
-              </form>
-
-              <form action='/api/getCMASPdf' method='POST' target='_blank'>
-                <input type='hidden' name='property_id' value='" . $row['unique_id'] . "'>
-                <button class='btn btn-flat dropdown-item mt-0' name='view'>
-                  <span class='fa fa-eye fa-fw fa-sm'></span> CMAS
-                </button>
-              </form>
+            <div class='dropdown-menu rounded-0 py-0' style='margin-left: -120px !important;'>
+              <li>
+                <a href='javascript:void(0)' class='p-0'>
+                  <form action='/api/getStatementOfAccount' method='POST' target='_blank'>
+                    <input type='hidden' name='property_id' value='" . $row['unique_id'] . "'>
+                    <button class='btn btn-flat btn-link dropdown-item mt-0' name='view'>
+                      <span class='fa fa-eye fa-fw fa-sm'></span> Statement Of Account
+                    </button>
+                  </form>
+                </a>
+              </li>
+              <li>
+                <a href='javascript:void(0)' class='p-0'>
+                  <form action='/api/getPaymentSummary' method='POST' target='_blank'>
+                    <input type='hidden' name='property_id' value='" . $row['unique_id'] . "'>
+                    <button class='btn btn-flat btn-link dropdown-item mt-0' name='view'>
+                      <span class='fa fa-eye fa-fw fa-sm'></span> Payment Summary
+                    </button>
+                  </form>
+                </a>
+              </li>
             </div>
           </div>
-          <div class='w-100'>
-            <button type='button' class='btn btn-flat btn-block bg-gradient-primary btn-xs dropdown-toggle' data-toggle='dropdown' aria-expanded='false'>
+
+          <div class='dropdown'>
+            <button type='button' class='btn btn-flat btn-primary btn-xs dropdown-toggle' data-toggle='dropdown' aria-expanded='false' title='Download'>
               <span class='fa fa-download fa-fw fa-sm'></span>
             </button>
-            <div class='dropdown-menu rounded-0 py-0' style='margin-right: -13px; margin-top: -1px;'>
-
-              <form action='/api/getSoaListsPdf' method='POST' target='_blank'>
-                <input type='hidden' name='property_id' value='" . $row['unique_id'] . "'>
-                <button class='btn btn-flat dropdown-item mt-0' name='download'>
-                  <span class='fa fa-download fa-fw fa-sm'></span> SOA List
-                </button>
-              </form>
-
-              <form action='/api/getSoaSummaryPdf' method='POST' target='_blank'>
-                <input type='hidden' name='property_id' value='" . $row['unique_id'] . "'>
-                <button class='btn btn-flat dropdown-item mt-0' name='download'>
-                  <span class='fa fa-download fa-fw fa-sm'></span> SOA Summary
-                </button>
-              </form>
-
-              <form action='/api/getCMASPdf' method='POST' target='_blank'>
-                <input type='hidden' name='property_id' value='" . $row['unique_id'] . "'>
-                <button class='btn btn-flat dropdown-item mt-0' name='download'>
-                  <span class='fa fa-download fa-fw fa-sm'></span> CMAS
-                </button>
-              </form>
+            <div class='dropdown-menu rounded-0 py-0' style='margin-left: -148px !important;'>
+              <li>
+                <a href='javascript:void(0)' class='p-0'>
+                  <form action='/api/getStatementOfAccount' method='POST' target='_blank'>
+                    <input type='hidden' name='property_id' value='" . $row['unique_id'] . "'>
+                    <button class='btn btn-flat btn-link dropdown-item mt-0' name='download'>
+                      <span class='fa fa-download fa-fw fa-sm'></span> Statement Of Account
+                    </button>
+                  </form>
+                </a>
+              </li>
+              <li>
+                <a href='javascript:void(0)' class='p-0'>
+                  <form action='/api/getPaymentSummary' method='POST' target='_blank'>
+                    <input type='hidden' name='property_id' value='" . $row['unique_id'] . "'>
+                    <button class='btn btn-flat btn-link dropdown-item mt-0' name='download'>
+                      <span class='fa fa-download fa-fw fa-sm'></span> Payment Summary
+                    </button>
+                  </form>
+                </a>
+              </li>
             </div>
           </div>
         </div>

@@ -12,11 +12,14 @@ services:
     ports:
       - 9001:80
     restart: always
+    environment:
+      TZ: Asia/Manila
   db:
     container_name: bff-db
     image: mysql
     restart: always
     environment:
+      TZ: Asia/Manila
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: clientmsdb
       MYSQL_USER: user
@@ -30,6 +33,7 @@ services:
       - '9081:80'
     restart: always
     environment:
+      TZ: Asia/Manila
       PMA_HOST: db
     depends_on:
       - db

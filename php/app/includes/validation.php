@@ -4,7 +4,9 @@
     $value = null;
 
     if (!empty($field)) {
-      $value = $isDate ? date('Y-m-d', strtotime($field)) : $field;
+      $value = $isDate
+        ? date('Y-m-d', strtotime($field))
+        : htmlspecialchars($field);
     }
 
     return $value;

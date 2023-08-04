@@ -85,20 +85,28 @@
         $subArray[] = trim($row['block_lots']) ? $blockLots : '------';
         $subArray[] = $lotArea ?? '------';
         $subArray[] = "
-          <div class='d-flex justify-content-center align-items-center'>
-            <button class='btn btn-link btn-sm m-0' onclick='handleGetEditClient(" . $row['unique_id'] . ")'>Edit</button> |
-            <button class='btn btn-link btn-sm m-0' onclick='handleGetClientDetails(" . $row['unique_id'] . ")'>View</button> |
-            <button class='btn btn-link btn-sm m-0' data-toggle='dropdown'>Manage</button>
-            <div class='dropdown-menu rounded-0 mt-n1 mr-2 py-0'>
-              <button type='button' class='btn btn-block dropdown-item mt-0' onclick='handleViewPropertyModal(" . $row['unique_id'] . ")'>
-                <span class='fa fa-fw fa-plus fa-sm mr-1'></span>Add Property
+          <div class='d-flex justify-content-center align-items-center gap-3'>
+            <button type='button' class='btn btn-flat btn-primary btn-xs' data-toggle='tooltip' data-placement='left' title='Edit' onclick='handleGetEditClient(" . $row['unique_id'] . ")'>
+              <span class='fa fa-edit fa-fw fa-sm'></span>
+            </button>
+            <button type='button' class='btn btn-flat btn-primary btn-xs' data-toggle='tooltip' data-placement='left' title='View' onclick='handleGetClientDetails(" . $row['unique_id'] . ")'>
+              <span class='fa fa-eye fa-fw fa-sm'></span>
+            </button>
+            <div class='dropdown'>
+              <button type='button' class='btn btn-flat btn-primary btn-xs dropdown-toggle' data-toggle='dropdown'>
+                <span class='glyphicon glyphicon-option-vertical'></span>
               </button>
-              <button type='button' class='btn btn-block dropdown-item mt-0' onclick='handleViewPaymentModal(" . $row['unique_id'] . ")'>
-                <span class='fa fa-fw fa-plus fa-sm mr-1'></span>Add Payment
-              </button>
-              <button type='button' class='btn btn-block dropdown-item mt-0' onclick='handleViewSOAModal(" . $row['unique_id'] . ")'>
-                <span class='fa fa-fw fa-file-pdf fa-sm mr-1'></span>Generate PDF
-              </button>
+              <div class='dropdown-menu rounded-0 p-0 m-0' role='menu' style='margin-left: -135px !important;'>
+                <li>
+                  <a href='javascript:void(0)' class='pl-4 p-2' onclick='handleViewPropertyModal(" . $row['unique_id'] . ")'><span class='fa fa-fw fa-plus fa-sm mr-1'></span>Add Property</a>
+                </li>
+                <li>
+                  <a href='javascript:void(0)' class='pl-4 p-2' onclick='handleViewPaymentModal(" . $row['unique_id'] . ")'><span class='fa fa-fw fa-plus fa-sm mr-1'></span>Add Payment</a>
+                </li>
+                <li>
+                  <a href='javascript:void(0)' class='pl-4 p-2' onclick='handleViewSOAModal(" . $row['unique_id'] . ")'><span class='fa fa-fw fa-file-pdf fa-sm mr-1'></span>Generate PDF</a>
+                </li>
+              </div>
             </div>
           </div>
         ";

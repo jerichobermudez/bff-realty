@@ -128,6 +128,8 @@
       downpayment_due_date,
       sales_coordinator,
       assistant_coordinator,
+      agent_id,
+      is_reserved,
       remarks
     FROM tbl_properties AS P
     LEFT JOIN tbl_clients AS C ON C.id = P.client_id
@@ -231,7 +233,7 @@
     $totalPropertyPrice = 0,
     $totalMonthlyAmortization = 0
   ) {
-    $qry = "SELECT reference_no, payment_amount, payment_date, payment_due_date, type, payment_type, payment_remarks FROM tbl_payments WHERE property_id = ? ORDER BY id $order";
+    $qry = "SELECT reference_no, payment_amount, payment_date, payment_due_date, type, payment_type, mode_of_payment, pr_no, payment_remarks FROM tbl_payments WHERE property_id = ? ORDER BY id $order";
     $stmt = $conn->prepare($qry);
     $stmt->bind_param('i', $propertyId);
     $stmt->execute();
@@ -259,6 +261,8 @@
           'payment_date' => date('y/m/d', strtotime($row['payment_date'])),
           'payment_due_date' => $row['payment_due_date'] ? date('y/m/d', strtotime($row['payment_due_date'])) : '',
           'type' => $row['type'],
+          'mode_of_payment' => $row['mode_of_payment'],
+          'pr_no' => $row['pr_no'],
           'payment_type' => PaymentTypes::getTextValue($row['type']),
           'payment_remarks' => $row['payment_remarks'] ?? ''
         ];
@@ -295,7 +299,9 @@
     $termsOfPayment = $termsOfPayment ? $termsOfPayment : 12;
     $downpaymentAmount = $downpaymentAmount ? str_replace(',', '', $downpaymentAmount) : 0;
 
+    $miscelaneousFee = 0.07; // 7%
     $totalPropertyPrice = $lotArea * $pricePerSqm;
+    $totalPropertyPrice = $totalPropertyPrice + ($totalPropertyPrice * $miscelaneousFee);
     $remainingBalance = $totalPropertyPrice - $downpaymentAmount;
     $totalMonthlyAmortization = $remainingBalance / $termsOfPayment;
     $totalMonthlyAmortization = $totalMonthlyAmortization > 0
@@ -324,4 +330,16 @@
       }
     }
     return false;
+  }
+  
+  function generateVoucherCode($conn) {
+    $length = 8;
+    $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    $code = '';
+
+    for ($i = 0; $i < $length; $i++) {
+      $code .= $characters[rand(0, strlen($characters) - 1)];
+    }
+
+    return $code;
   }
